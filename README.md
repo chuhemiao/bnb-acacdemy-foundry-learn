@@ -79,3 +79,12 @@ cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply()(uint256)" --
 ## Anvil 概述
 
 Anvil 是 Foundry 附带的本地测试网节点。 您可以使用它从前端测试您的合约或通过 RPC 进行交互。
+
+## vscode 配置
+
+```
+{
+   "solidity.packageDefaultDependenciesContractsDirectory": "src",
+   "solidity.packageDefaultDependenciesDirectory"："lib"
+}
+```
