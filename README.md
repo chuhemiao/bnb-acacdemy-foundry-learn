@@ -80,6 +80,31 @@ cast call 0x6b175474e89094c44da98b954eedeac495271d0f "totalSupply()(uint256)" --
 
 Anvil 是 Foundry 附带的本地测试网节点。 您可以使用它从前端测试您的合约或通过 RPC 进行交互。
 
+启动本地测试节点: `anvil`
+
+```
+forge script script/token.s.sol:TokenScript --fork-url http://localhost:8545 --private-key ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --broadcast
+```
+
+```
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+Total Paid: 0.004578644 ETH (1144661 gas * avg 4 gwei)
+
+Transactions saved to: /Users/kk/icourse/hello_foundry_kk/broadcast/token.s.sol/31337/run-latest.json
+```
+
+保存部署后的 token 合约变量: `export TOKEN_ADDRESS="0x5fbdb2315678afecb367f032d93f642f64180aa3"`
+
+`export LOCAL_ACCOUNT="ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"`
+
+`cast call $TOKEN_ADDRESS "name()(string)"`
+
+`cast call $TOKEN_ADDRESS "symbol()(string)"`
+
+`cast call $TOKEN_ADDRESS "decimals()(uint8)"`
+
+`cast send --value 0.0001ether --private-key $LOCAL_ACCOUNT $TOKEN_ADDRESS "mintTo(address)" 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 -j`
+
 ## vscode 配置
 
 ```
@@ -88,3 +113,13 @@ Anvil 是 Foundry 附带的本地测试网节点。 您可以使用它从前端�
    "solidity.packageDefaultDependenciesDirectory"："lib"
 }
 ```
+
+## 部署
+
+- 读取.env 文件内的内容并将其保存为环境变量
+
+`source .env`
+
+- 与部署到本地网络类似，使用命令部署到以太坊中
+
+`forge script script/token.s.sol:TokenScript --rpc-url $ROPSTEN_RPC_URL  --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_KEY -vvvv`
